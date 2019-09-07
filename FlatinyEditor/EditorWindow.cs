@@ -8,6 +8,7 @@ using MaximovInk.FlatinyEngine.Core.Graphics;
 using MaximovInk.FlatinyEngine.Core;
 using MaximovInk.FlatinyEngine.Core.Compnents;
 using System.Drawing;
+using OpenTK.Graphics.OpenGL;
 
 namespace FlatinyEngine
 {
@@ -15,6 +16,8 @@ namespace FlatinyEngine
     {
         private GUICanvas GUICanvas;
         private GameObject go;
+
+        private TextRenderer dbg;
 
         public static void Main()
         {
@@ -31,29 +34,32 @@ namespace FlatinyEngine
         protected override void OnLoad()
         {
             GUICanvas = new GUICanvas();
-           
-            var imgRect = GUICanvas.AddRect<GUIImage>();
+
+            var imgRect = GUICanvas.AddRect<GUIButton>();
             imgRect.SetTexture(Texture2D.OnePixel);
             imgRect.Rect = new Rectangle(0, 0, 20, 20);
 
-            var child = new GUIImage(GUICanvas);
+            var child = new GUIButton(GUICanvas);
             child.SetParent(imgRect);
             child.SetTexture(Texture2D.OnePixel);
-            child.SetColor(Color.Black);
+            child.SetColor(Color.Gray);
             child.Rect = new Rectangle(0, 0, 50, 50);
 
             go = new GameObject();
             var go1 = new GameObject();
             var go2 = new GameObject();
             var go3 = new GameObject();
+            var go4 = new GameObject();
             sceneProcess.AddGameObject(go);
             sceneProcess.AddGameObject(go1);
             sceneProcess.AddGameObject(go2);
             sceneProcess.AddGameObject(go3);
+            sceneProcess.AddGameObject(go4);
             go.transform.Scale = new Vector3(100);
             go1.transform.Scale = new Vector3(100);
             go2.transform.Scale = new Vector3(100);
             go3.transform.Scale = new Vector3(100);
+            go4.transform.Scale = new Vector3(100);
             go.transform.Position = new Vector3(0,100,0);
             go1.transform.Position = new Vector3(100, 100, 0);
             go2.transform.Position = new Vector3(200, 0, 0);
@@ -61,14 +67,26 @@ namespace FlatinyEngine
             var tx1 = go1.AddComponent<TextureRenderer>();
             var tx2 = go2.AddComponent<TextureRenderer>();
             var txtR = go3.AddComponent<TextRenderer>();
+            /*var mesh = go4.AddComponent<MeshRenderer>().Mesh = Mesh.Grid(10,10);
+
+            mesh.vertices[0].color = Color4.Red.ToVector();
+            mesh.vertices[1].color = Color4.Red.ToVector();
+            mesh.vertices[2].color = Color4.Red.ToVector();
+            mesh.vertices[3].color = Color4.Red.ToVector();
+
+            mesh.ApplyData();*/
+
+            var tmp = go4.AddComponent<TilemapRenderer>();
+            
+
             tx.Texture = new Texture2D("Content/16px.png");
             txtR.SetFont(new TextureFont("Content/good.ttf"));
             txtR.SetText("Flatiny | Hello world !");
+
+            dbg = txtR;
             tx2.Texture = tx1.Texture = tx.Texture;
             tx2.SetColor(Color.Red);
 
-  
-          
             base.OnLoad();
         }
 
@@ -106,11 +124,16 @@ namespace FlatinyEngine
                 go.transform.Scale -= Vector3.One * deltaTime;
             }
 
+            Title = 1 / deltaTime + "-fps " + deltaTime + "-ms";
+
+            dbg.SetText("Dr:"+GUICanvas.Dragged + " Ov:" + GUICanvas.Over);
+
             Screen.Size += Input.MouseScrollDelta * deltaTime*10;
         }
         protected override void OnRender(float deltaTime)
         {
             base.OnRender(deltaTime);
+
         }
     }
 }

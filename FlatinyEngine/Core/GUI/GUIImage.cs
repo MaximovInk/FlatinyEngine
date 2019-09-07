@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace MaximovInk.FlatinyEngine.Core.GUI
 {
-    public sealed class GUIImage : GUIRect
+    public class GUIImage : GUIRect
     {
         private Texture2D texture;
         private Color color;

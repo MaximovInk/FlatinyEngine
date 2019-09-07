@@ -6,10 +6,10 @@ using System.Drawing;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public sealed class TextureRenderer : MeshRenderer
+    public sealed class TextureRenderer : Renderer
     {
         public Texture2D Texture { get; set; }
-        private Color color = Color.White;
+        private Color color { get; set; } = Color.White;
 
         public void SetColor(Color color)
         {
@@ -31,7 +31,8 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
         public override void OnRender(float deltaTime)
         {
             if (Texture != null)
-            {
+            {             
+
                 Texture.Bind();
 
                 base.OnRender(deltaTime);

@@ -10,22 +10,24 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public Effect(string vertex_shader ,string fragment_shader)
         {
             Handle = GL.CreateProgram();
-            var vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, vertex_shader);
-            GL.CompileShader(vertexShader);
 
-            var fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, fragment_shader);
-            GL.CompileShader(fragmentShader);
+            var vert = new Shader(ShaderType.VertexShader, vertex_shader);
+            var frag = new Shader(ShaderType.FragmentShader, fragment_shader);
 
-            GL.AttachShader(Handle, vertexShader);
-            GL.AttachShader(Handle, fragmentShader);
+            GL.AttachShader(Handle, vert.Handle);
+            GL.AttachShader(Handle, frag.Handle);
             GL.LinkProgram(Handle);
+            GL.GetProgramInfoLog(Handle,out string info);
 
-            GL.DetachShader(Handle, vertexShader);
-            GL.DetachShader(Handle, fragmentShader);
-            GL.DeleteShader(vertexShader);
-            GL.DeleteShader(fragmentShader);
+            GL.DetachShader(Handle, vert.Handle);
+            GL.DetachShader(Handle, frag.Handle);
+            vert.Dispose();
+            frag.Dispose();
+        }
+
+        public void SetUniform(string name, double num)
+        {
+            GL.Uniform1(GetUniformLocation(name), num);
         }
 
         public int GetAttributeLocation(string name)
@@ -41,6 +43,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public void Use()
         {
             GL.UseProgram(Handle);
+        }
+
+        public void Unuse()
+        {
+            GL.UseProgram(0);
         }
 
         public void Dispose()

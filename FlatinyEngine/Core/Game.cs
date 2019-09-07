@@ -22,6 +22,8 @@ namespace MaximovInk.FlatinyEngine.Core
         public static int Width { get { return Window.Width; } set { Window.Width = value; } }
         public static int Height { get { return Window.Height; } set { Window.Height = value; } }
 
+        public float Time { get; private set; }
+
         protected SceneGraph sceneProcess;
  
         public Game()
@@ -50,7 +52,7 @@ namespace MaximovInk.FlatinyEngine.Core
             Window.Closing += (object sender, System.ComponentModel.CancelEventArgs e) => OnWindowClosing();
             Window.Load += (object sender, EventArgs e) => { Window.Icon = Properties.Resources.icon;  OnLoad(); };
             Window.Unload += (object sender, EventArgs e) => OnUnload();
-            Window.UpdateFrame += (object sender, FrameEventArgs e) => { OnUpdate((float)e.Time); };
+            Window.UpdateFrame += (object sender, FrameEventArgs e) => { OnUpdate((float)e.Time); Time += (float)e.Time; };
             Window.RenderFrame += (object sender, FrameEventArgs e) => { OnRender((float)e.Time);  };
             Window.Resize += (object sender, EventArgs e) => OnResize();
 

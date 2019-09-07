@@ -57,10 +57,9 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
 
         public Rectangle Rect = new Rectangle(0,0,1,1);
 
+
         private float UnitX => Parent != null ? Parent.Rect.Width/100.0f*Canvas.UnitX : Canvas.UnitX;
         private float UnitY => Parent != null ? Parent.Rect.Height / 100.0f * Canvas.UnitY : Canvas.UnitY;
-
-        public float Rotation = 0;
 
         protected Mesh mesh;
 
@@ -76,8 +75,8 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
 
         protected Matrix4 GetMatrix() =>
             
-            Matrix4.CreateTranslation(Rect.X * UnitX, Rect.Y * -UnitY, 0) *
-            Matrix4.CreateRotationZ(Rotation) 
+            Matrix4.CreateTranslation(Rect.X * UnitX, Rect.Y * -UnitY, 0)/* *
+            Matrix4.CreateRotationZ(Rotation) */
             ;
 
         protected Matrix4 GetGlobalMatrix()
@@ -131,5 +130,41 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
 
         protected virtual void OnCreate() { }
         public virtual void OnDestroy() { mesh.Dispose(); }
+
+        public GUIRect MouseIntersection()
+        {
+            var x = Input.MouseX;
+            var y = Input.MouseY;
+
+            GUIRect intersected = null;
+            var trns = GetGlobalMatrix().ExtractTranslation();
+
+            intersected = new Rectangle((int)trns.X, (int)trns.Y, (int)(Rect.Width * UnitX),(int)(Rect.Height * UnitY)).IntersectsWith(new Rectangle(x, y, 1, 1)) ? this : null ;
+            for (int i = 0; i < childrens.Count; i++)
+            {
+                intersected = childrens[i].MouseIntersection() ?? intersected;
+            }
+
+            return intersected;
+        }
+        public virtual void OnDragStart()
+        {
+        }
+        public virtual void OnDrag()
+        {
+        }
+        public virtual void OnDragEnd()
+        {
+        }
+        public virtual void OnMouseEnter()
+        {
+        }
+        public virtual void OmMouseOver()
+        {
+        }
+        public virtual void OnMouseExit()
+        {
+
+        }
     }
 }

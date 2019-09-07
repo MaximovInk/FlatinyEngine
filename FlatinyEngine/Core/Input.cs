@@ -11,13 +11,13 @@ namespace MaximovInk.FlatinyEngine
         private static KeyboardState keyboardState, lastKeyboardState;
         private static MouseState mouseState, lastMouseState;
 
-        public static int MouseX => mouseState.X;
-        public static int MouseY => mouseState.Y;
+        public static int MouseX { get; private set; }
+        public static int MouseY { get; private set; }
+
+        public static int MouseXDelta { get; private set; }
+        public static int MouseYDelta { get; private set; }
 
         public static float MouseScrollDelta => mouseState.WheelPrecise - lastMouseState.WheelPrecise;
-
-        public static int MouseXDelta => mouseState.X - lastMouseState.X;
-        public static int MouseYDelta => mouseState.Y - lastMouseState.Y;
 
         public static UpdateProcess Init(GameWindow window)
         {
@@ -29,12 +29,19 @@ namespace MaximovInk.FlatinyEngine
                 gameWindow.KeyDown += KeyDown;
                 gameWindow.MouseDown += MouseDown;
                 gameWindow.MouseUp += MouseUp;
+                gameWindow.MouseMove += (object sender, MouseMoveEventArgs e)=> {
+                    MouseX = e.X;
+                    MouseY = e.Y;
+                    MouseXDelta = e.XDelta;
+                    MouseYDelta = e.YDelta;
+                };
             }
 
             var handler = new UpdateProcess();
             handler.onUpdate += Update;
             return handler;
         }
+
 
         private static void Update(float deltaTime)
         {

@@ -27,7 +27,9 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
         public float UnitX => ScaleBy == ScaleType.ByPercents ? GUILayer.Width/100.0f : 1.0f;
         public float UnitY => ScaleBy == ScaleType.ByPercents ? GUILayer.Height/100.0f : 1.0f;
 
-        public GUIRect Dragged;
+        public GUIRect Over { get; private set; }
+        private GUIRect lastOver;
+        public GUIRect Dragged { get; private set; }
 
         public T AddRect<T>()where T : GUIRect
         {
@@ -42,8 +44,6 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
             rectangle.OnDestroy();
         }
 
-        
-
         public GUICanvas()
         {
             GUILayer.RegisterGUI(this);
@@ -54,9 +54,44 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
             GUILayer.RemoveGUI(this);
         }
 
-        public void Update()
+        private void UpdateInput()
         {
 
+            for (int i = 0; i < childrens.Count; i++)
+            {
+                Over = childrens[i].MouseIntersection();
+            }
+            Over?.OmMouseOver();
+            if (Over != lastOver && Over != null)
+            {
+                Over.OnMouseEnter();
+            }
+            if (Over != lastOver && lastOver != null)
+            {
+                lastOver.OnMouseExit();
+            }
+
+            if (Input.GetMouseButtonDown(OpenTK.Input.MouseButton.Left))
+            {
+                Dragged = Over;
+                Dragged?.OnDragStart();
+            }
+
+            Dragged?.OnDrag();
+
+            if (Input.GetMouseButtonUp(OpenTK.Input.MouseButton.Left))
+            {
+                Dragged?.OnDragEnd();
+                Dragged = null;
+            }
+
+            lastOver = Over;
+        }
+
+        public void Update()
+        {
+            
+            UpdateInput();
         }
 
         public void Render()

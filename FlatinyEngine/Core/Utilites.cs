@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -35,6 +36,17 @@ namespace MaximovInk.FlatinyEngine.Core
                 action(item);
             }
         }
+
+        public static Vector4 ToVector(this Color4 color)
+        {
+            return new Vector4(color.R, color.G, color.B, color.A);
+        }
+
+        public static Color4 ToColor(this Vector4 color)
+        {
+            return new Color4(color.X, color.Y, color.Z, color.W);
+        }
+
 
         public static T Copy<T>(this T obj) where T : class, ICloneable
         {

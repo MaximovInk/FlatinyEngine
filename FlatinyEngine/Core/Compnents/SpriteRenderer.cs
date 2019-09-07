@@ -3,7 +3,7 @@ using OpenTK;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public sealed class SpriteRenderer : MeshRenderer
+    public sealed class SpriteRenderer : Renderer
     {
         private Sprite sprite;
 

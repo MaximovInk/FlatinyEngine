@@ -10,7 +10,7 @@ namespace MaximovInk.FlatinyEngine
     {
         private static List<Message> messages { get; set; } = new List<Message>();
         
-        public static int Limit = 100;
+        public static int Limit = 20;
 
         private static void Log<T>(T message, Message.TYPE type)
         {

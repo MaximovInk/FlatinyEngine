@@ -7,7 +7,7 @@ using System;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public sealed class TextRenderer : MeshRenderer
+    public sealed class TextRenderer : Renderer
     {
         private TextureFont font;
         private string text;
