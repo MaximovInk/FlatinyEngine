@@ -31,6 +31,17 @@ Handle input
 - Mathf<br/>
 Useful functions
 
+Version 0.3
+- Refactoring of code
+- New working component: TilemapRenderer
+- ImageRect splits to two rects: GUIImage for sprites and GUIRawImage for textures
+- Graphics gui rects now must be implement interface IGraphics
+- Added interfaces: IStart,IEnd,IUpdate,IRender for components
+- Renderer now is not a component
+- GUIButton now is empty rect and has reference to graphics rect
+- Optimization chunks mesh by dirty flag pattern
+- Some utilites added to Utilites.cs class
+
 Version 0.2
 - GUI Interactions(MouseOver,Dragging)
 - Renderer now is base component of graphic components
