@@ -11,31 +11,47 @@ namespace MaximovInk.FlatinyEngine.Core
 
         public Transform transform;
 
-        private List<Component> components = new List<Component>();
+        private List<IComponent> components = new List<IComponent>();
         
         public GameObject()
         {
             transform = new Transform();
             components.Add(transform);
-            transform.Start();
             transform.gameObject = this;
         }
 
-        public T AddComponent<T>() where T : Component
+        public IComponent AddComponent(IComponent component)
+        {
+            if (component.Equals(typeof(Transform)))
+                throw new Exception("Can't add to gameObject Transform component...");
+            if (component.gameObject != null || components.Contains(component))
+                throw new Exception("Why are you doing this???");
+
+            component.gameObject = this;
+            component.enabled = true;
+            components.Add(component);
+            if (component is IStart)
+                (component as IStart).Start();
+            return component;
+        }
+        /*
+        public T AddComponent<T>() where T : IComponent
         {
             var component = (T)Activator.CreateInstance(typeof(T));
             if (component.Equals(typeof(Transform)))
-                return transform as T;
+                throw new Exception("Can't add to gameObject Transform component...");
 
-            components.Add(component);
             component.gameObject = this;
-            component.Start();
+            Logger.Log(component.gameObject == null);
+            components.Add(component);
+            if(component is IStart)
+                (component as IStart).Start();
             return component;
-        }
+        }*/
 
-        public void RemoveComponent(Component component)
+        public void RemoveComponent(IComponent component)
         {
-            component.End();
+            (component as IEnd)?.End();
             components.Remove(component);
         }
 
@@ -43,39 +59,37 @@ namespace MaximovInk.FlatinyEngine.Core
         {
             for (int i = 0; i < components.Count; i++)
             {
-                components[i].Start();
+                (components[i] as IStart)?.Start();
             }
         }
 
-        public void OnUpdate(float deltaTime)
+        public void Update(float deltaTime)
         {
-
-
             for (int i = 0; i < components.Count; i++)
             {
                 if (components[i].enabled)
-                    components[i].OnUpdate(deltaTime);
+                    (components[i] as IUpdate)?.Update(deltaTime);
             }
 
             for (int i = 0; i < childrens.Count; i++)
             {
                 if (childrens[i].enabled)
-                    childrens[i].OnUpdate(deltaTime);
+                    childrens[i].Update(deltaTime);
             }
         }
 
-        public void OnRender(float deltaTime)
+        public void Render(float deltaTime)
         {
             for (int i = 0; i < components.Count; i++)
             {
                 if (components[i].enabled)
-                    components[i].OnRender(deltaTime);
+                    (components[i] as IRender)?.Render(deltaTime);
             }
+
             for (int i = 0; i < childrens.Count; i++)
             {
                 if (childrens[i].visible)
-                    childrens[i].OnRender(deltaTime);
-
+                    childrens[i].Render(deltaTime);
             }
         }
 
@@ -83,7 +97,7 @@ namespace MaximovInk.FlatinyEngine.Core
         {
             for (int i = 0; i < components.Count; i++)
             {
-                components[i].End();
+                (components[i] as IEnd)?.End();
             }
         }
 

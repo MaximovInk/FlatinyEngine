@@ -6,10 +6,18 @@ using System.Drawing;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public sealed class TextureRenderer : Renderer
+    public sealed class TextureRenderer : Renderer,IComponent
     {
         public Texture2D Texture { get; set; }
         private Color color { get; set; } = Color.White;
+
+        public bool enabled { get; set; }
+        public GameObject gameObject { get; set; }
+        public string tag { get; set; }
+        protected override Matrix4 GetMatrix()
+        {
+            return gameObject.transform.GetGlobalMatrix();
+        }
 
         public void SetColor(Color color)
         {
@@ -28,14 +36,13 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
             mesh = Mesh.Quad;
         }
 
-        public override void OnRender(float deltaTime)
+        public override void Render(float deltaTime)
         {
             if (Texture != null)
-            {             
-
+            {
                 Texture.Bind();
 
-                base.OnRender(deltaTime);
+                base.Render(deltaTime);
 
                 Texture.Unbind();
             }

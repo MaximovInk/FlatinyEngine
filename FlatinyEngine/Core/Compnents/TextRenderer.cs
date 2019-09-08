@@ -7,10 +7,19 @@ using System;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public sealed class TextRenderer : Renderer
+    public sealed class TextRenderer : Renderer,IComponent
     {
         private TextureFont font;
         private string text;
+
+
+        public bool enabled { get; set; }
+        public GameObject gameObject { get; set; }
+        public string tag { get; set; }
+        protected override Matrix4 GetMatrix()
+        {
+            return gameObject.transform.GetGlobalMatrix();
+        }
 
         public TextRenderer()
         {
@@ -66,14 +75,14 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
             return text;
         }
 
-        public override void OnRender(float deltaTime)
+        public override void Render(float deltaTime)
         {
             if (text == string.Empty || font == null)
                 return;
 
             font.Bind();
 
-            base.OnRender(deltaTime);
+            base.Render(deltaTime);
 
             font.Unbind();
         }

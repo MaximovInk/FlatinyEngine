@@ -36,25 +36,27 @@ namespace FlatinyEngine
             GUICanvas = new GUICanvas();
 
             var imgRect = GUICanvas.AddRect<GUIButton>();
-            imgRect.SetTexture(Texture2D.OnePixel);
+            //imgRect.SetTexture(Texture2D.OnePixel);
             imgRect.Rect = new Rectangle(0, 0, 20, 20);
 
-            var child = new GUIButton(GUICanvas);
+            var child = new GUIRawImage(GUICanvas);
+            imgRect.Graphics = child;
             child.SetParent(imgRect);
-            child.SetTexture(Texture2D.OnePixel);
-            child.SetColor(Color.Gray);
-            child.Rect = new Rectangle(0, 0, 50, 50);
+            child.Texture=Texture2D.OnePixel;
+            child.Color = Color.Gray;
+            child.Rect = new Rectangle(0, 0, 100, 100);
 
             go = new GameObject();
             var go1 = new GameObject();
             var go2 = new GameObject();
             var go3 = new GameObject();
             var go4 = new GameObject();
+            sceneProcess.AddGameObject(go4);
             sceneProcess.AddGameObject(go);
             sceneProcess.AddGameObject(go1);
             sceneProcess.AddGameObject(go2);
             sceneProcess.AddGameObject(go3);
-            sceneProcess.AddGameObject(go4);
+ 
             go.transform.Scale = new Vector3(100);
             go1.transform.Scale = new Vector3(100);
             go2.transform.Scale = new Vector3(100);
@@ -63,10 +65,15 @@ namespace FlatinyEngine
             go.transform.Position = new Vector3(0,100,0);
             go1.transform.Position = new Vector3(100, 100, 0);
             go2.transform.Position = new Vector3(200, 0, 0);
-            var tx = go.AddComponent<TextureRenderer>();
+            /*var tx = go.AddComponent<TextureRenderer>();
             var tx1 = go1.AddComponent<TextureRenderer>();
             var tx2 = go2.AddComponent<TextureRenderer>();
-            var txtR = go3.AddComponent<TextRenderer>();
+            var txtR = go3.AddComponent<TextRenderer>();*/
+            var tmp = go4.AddComponent(new TilemapRenderer()) as TilemapRenderer;
+            var tx = go.AddComponent(new TextureRenderer()) as TextureRenderer;
+            var tx1 = go1.AddComponent(new TextureRenderer()) as TextureRenderer;
+            var tx2 = go2.AddComponent(new TextureRenderer()) as TextureRenderer;
+            var txtR = go3.AddComponent(new TextRenderer()) as TextRenderer;
             /*var mesh = go4.AddComponent<MeshRenderer>().Mesh = Mesh.Grid(10,10);
 
             mesh.vertices[0].color = Color4.Red.ToVector();
@@ -75,9 +82,27 @@ namespace FlatinyEngine
             mesh.vertices[3].color = Color4.Red.ToVector();
 
             mesh.ApplyData();*/
-
-            var tmp = go4.AddComponent<TilemapRenderer>();
+            //            var tmp = go4.AddComponent<TilemapRenderer>();
             
+            tmp.textureAtlas = new Texture2D("Content/tiles.png");
+            tmp.SliceAtlas();
+
+            tmp.SetTile(1, 2, 0);
+            tmp.SetTile(2, 2, 1);
+            tmp.SetTile(3, 3, 2);
+            tmp.SetTile(4, 3, 3);
+            tmp.SetTile(5, 3, 4);
+            tmp.SetTile(6, 3, 5);
+
+            tmp.SetTile(1, 4, 6);
+            tmp.SetTile(2, 5, 7);
+            tmp.SetTile(3, 6, 8);
+            tmp.SetTile(4, 7, 9);
+            tmp.SetTile(5, 8, 10);
+            tmp.SetTile(6, 9, 11);
+
+
+            tmp.UpdateMesh();
 
             tx.Texture = new Texture2D("Content/16px.png");
             txtR.SetFont(new TextureFont("Content/good.ttf"));
@@ -125,8 +150,8 @@ namespace FlatinyEngine
             }
 
             Title = 1 / deltaTime + "-fps " + deltaTime + "-ms";
-
-            dbg.SetText("Dr:"+GUICanvas.Dragged + " Ov:" + GUICanvas.Over);
+            if(GUICanvas.Dragged != null || GUICanvas.Over != null)
+                dbg.SetText("Dr:"+GUICanvas.Dragged + " Ov:" + GUICanvas.Over);
 
             Screen.Size += Input.MouseScrollDelta * deltaTime*10;
         }

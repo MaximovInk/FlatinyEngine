@@ -9,12 +9,8 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
     public class Texture2D : IDisposable
     {
         private int Handle;
-        private int Width;
-        private int Height;
-
-        public int GetWidth() => Width;
-
-        public int GetHeight() => Height;
+        public int Width { get; }
+        public int Height { get; }
 
         public static readonly Texture2D OnePixel;
 
@@ -114,22 +110,24 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
     public class Sprite
     {
-        public Texture2D Texture { get; private set; }
-        public Rectangle UV = Rectangle.Empty;
-        public Vector2 Pivot = Vector2.Zero;
+        public Texture2D Texture { get; }
+        public Rectangle Rect { get; } = Rectangle.Empty;
+        public Vector4 Uv { get; } = Vector4.Zero;
+        public Vector2 Pivot { get; } = Vector2.Zero;
 
-        public Sprite(Texture2D texture)
+        public Sprite(Texture2D texture) : this (texture, new Rectangle(0, 0, texture.Width, texture.Height))
         {
             Texture = texture;
-            UV = new Rectangle(0, 0, Texture.GetWidth(), Texture.GetHeight());
-            Pivot = new Vector2(Texture.GetWidth() / 2, Texture.GetHeight() / 2);
         }
 
-        public Sprite(Texture2D texture, Rectangle uv)
+        public Sprite(Texture2D texture, Rectangle rect)
         {
             Texture = texture;
-            UV = uv;
-            Pivot = new Vector2(Texture.GetWidth() / 2, Texture.GetHeight() / 2);
+            Rect = rect;
+            float w = texture.Width;
+            float h = texture.Height;
+            Uv = new Vector4(rect.X / w, rect.Y / h, rect.Width / w, rect.Height / h);
+            Pivot = new Vector2(rect.Width / 2f, Texture.Height / 2f);
         }
     }
 }

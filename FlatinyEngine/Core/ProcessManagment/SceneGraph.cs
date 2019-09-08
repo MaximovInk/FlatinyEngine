@@ -31,7 +31,7 @@ namespace MaximovInk.FlatinyEngine.Core.ProcessManagment
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 if(gameObjects[i].enabled)
-                    gameObjects[i].OnUpdate(deltaTime);
+                    gameObjects[i].Update(deltaTime);
             }
         }
 
@@ -40,7 +40,7 @@ namespace MaximovInk.FlatinyEngine.Core.ProcessManagment
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 if(gameObjects[i].visible)
-                    gameObjects[i].OnRender(deltaTime);
+                    gameObjects[i].Render(deltaTime);
             }
         }
 

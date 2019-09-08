@@ -5,11 +5,13 @@ using System;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public abstract class Renderer : Component
+    public abstract class Renderer : IRender
     {
         protected Mesh mesh;
 
-        public override void OnRender(float deltaTime)
+        protected abstract Matrix4 GetMatrix();
+
+        public virtual void Render(float deltaTime)
         {
             if (mesh == null || mesh.indices == null)
                 return;
@@ -27,7 +29,8 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
             GL.TexCoordPointer(2, TexCoordPointerType.Float, ColoredVertex.SizeInBytes, Vector2.SizeInBytes);
             GL.ColorPointer(4, ColorPointerType.Float, ColoredVertex.SizeInBytes, Vector2.SizeInBytes * 2);
 
-            var matrix = gameObject.transform.GetGlobalMatrix();
+            //var matrix = gameObject.transform.GetGlobalMatrix();
+            var matrix = GetMatrix();
             GL.LoadMatrix(ref matrix);
             GL.DrawElements(PrimitiveType.Triangles, mesh.indices.Length, DrawElementsType.UnsignedInt, 0);
 

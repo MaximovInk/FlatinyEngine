@@ -30,5 +30,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             get { return Color.FromArgb((int)(color.W*255), (int)(color.X * 255), (int)(color.Y * 255), (int)(color.Z * 255)); }
             set { color = new Vector4(value.R / 255f, value.G / 255f, value.B / 255f, value.A / 255f); }
         }
+
+        public static ColoredVertex EMPTY => new ColoredVertex(Vector2.Zero,Vector2.Zero,Color.Transparent);
     }
 }

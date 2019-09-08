@@ -28,5 +28,10 @@ namespace MaximovInk.FlatinyEngine.Core
         {
             return new Vector4(Clamp(vec.X, min, max), Clamp(vec.Y, min, max), Clamp(vec.Z,min,max),Clamp(vec.W,min,max));
         }
+
+        public static float MagicFunction(float number, float into)
+        {
+            return into - into / number;
+        }
     }
 }

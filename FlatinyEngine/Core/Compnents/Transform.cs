@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public class Transform : Component
+    public class Transform : IComponent
     {
-        public Vector3 Position = Vector3.Zero;
-        public Vector3 Rotation = Vector3.Zero;
-        public Vector3 Scale = Vector3.One;
-        public Vector2 Origin = Vector2.Zero;
+        public Vector3 Position { get; set; } = Vector3.Zero;
+        public Vector3 Rotation { get; set; } = Vector3.Zero;
+        public Vector3 Scale { get; set; } = Vector3.One;
+        public Vector2 Origin { get; set; } = Vector2.Zero;
+
+        public bool enabled { get; set; }
+        public GameObject gameObject { get; set; }
+        public string tag { get; set; }
 
         public Matrix4 GetMatrix()
         {
@@ -22,7 +26,7 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
                 Matrix4.CreateRotationX(Rotation.X) *
                 Matrix4.CreateRotationY(Rotation.Y) *
                 Matrix4.CreateRotationZ(Rotation.Z) *
-                Matrix4.CreateTranslation(Origin.X,Origin.Y,0)
+                Matrix4.CreateTranslation(Origin.X, Origin.Y, 0)
                 ;
         }
 

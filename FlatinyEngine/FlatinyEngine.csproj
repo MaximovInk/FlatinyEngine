@@ -50,15 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Compnents\IEnd.cs" />
+    <Compile Include="Core\Compnents\IStart.cs" />
+    <Compile Include="Core\Compnents\IUpdate.cs" />
+    <Compile Include="Core\Compnents\IRender.cs" />
     <Compile Include="Core\Compnents\MeshRenderer.cs" />
     <Compile Include="Core\Compnents\Renderer.cs" />
     <Compile Include="Core\Compnents\SpriteRenderer.cs" />
     <Compile Include="Core\Compnents\TextRenderer.cs" />
     <Compile Include="Core\Compnents\TilemapRenderer.cs" />
+    <Compile Include="Core\Compnents\w.cs" />
     <Compile Include="Core\Graphics\Mesh.cs" />
     <Compile Include="Core\Graphics\TextLayout.cs" />
     <Compile Include="Core\GUI\GUIButton.cs" />
+    <Compile Include="Core\GUI\GUIRawImage.cs" />
     <Compile Include="Core\GUI\GUIText.cs" />
+    <Compile Include="Core\GUI\Graphics.cs" />
     <Compile Include="Core\ProcessManagment\Screen.cs" />
     <Compile Include="Core\Graphics\Shaders.cs" />
     <Compile Include="Core\Graphics\Vertex.cs" />
@@ -66,7 +73,7 @@
     <Compile Include="Core\Compnents\Transform.cs" />
     <Compile Include="Core\Compnents\TextureRenderer.cs" />
     <Compile Include="Core\GameObject.cs" />
-    <Compile Include="Core\Compnents\Component.cs" />
+    <Compile Include="Core\Compnents\IComponent.cs" />
     <Compile Include="Core\GameWindowWrapper.cs" />
     <Compile Include="Core\Graphics\ColoredVertex.cs" />
     <Compile Include="Core\GUI\GUICanvas.cs" />
@@ -95,6 +102,7 @@
     <Compile Include="Core\Graphics\Texture2D.cs" />
     <Compile Include="Core\Tilemaps\Chunk.cs" />
     <Compile Include="Core\Tilemaps\Tile.cs" />
+    <Compile Include="Core\Tilemaps\Tileset.cs" />
     <Compile Include="Core\Utilites.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Input.cs" />
@@ -104,7 +112,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -133,6 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gui.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

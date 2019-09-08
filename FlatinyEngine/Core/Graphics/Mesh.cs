@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace MaximovInk.FlatinyEngine.Core.Graphics
@@ -22,6 +23,31 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public Mesh()
         {
             GenBuffers();
+        }
+
+        public void FillIndices(uint indice)
+        {
+            for (int i = 0; i < indices.Length; i++)
+            {
+                indices[i] = indice;
+            }
+        }
+
+
+        public void FillVertices(ColoredVertex vertex)
+        {
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = vertex;
+            }
+        }
+
+        public void FillColor(Color4 Color)
+        {
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i].color = Color.ToVector();
+            }
         }
 
         public void ApplyData()
@@ -62,15 +88,22 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
         private void UpdateBufferSubData()
         {
+            //var v = vertices.Where(n => !n.Equals(ColoredVertex.EMPTY)).ToArray();
+            //var i = indices.Where(n => n != uint.MaxValue).ToArray();
+            //GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, (IntPtr)(ColoredVertex.SizeInBytes * v.Length), v);
+            //GL.BufferSubData(BufferTarget.ElementArrayBuffer, (IntPtr)0, (IntPtr)(sizeof(uint) * i.Length), i);
             GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, (IntPtr)(ColoredVertex.SizeInBytes * vertices.Length), vertices);
             GL.BufferSubData(BufferTarget.ElementArrayBuffer, (IntPtr)0, (IntPtr)(sizeof(uint) * indices.Length), indices);
         }
 
         private void UpdateBufferData()
         {
+            //var v = vertices.Where(n => !n.Equals(ColoredVertex.EMPTY)).ToArray();
+            //var i = indices.Where(n => n != uint.MaxValue).ToArray();
+            //GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(ColoredVertex.SizeInBytes * v.Length), v, BufferUsageHint.DynamicDraw);
+            //GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(sizeof(uint) * i.Length), i, BufferUsageHint.DynamicDraw);
             GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(ColoredVertex.SizeInBytes * vertices.Length), vertices, BufferUsageHint.DynamicDraw);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(sizeof(uint) * indices.Length), indices, BufferUsageHint.DynamicDraw);
-
         }
 
         public void Dispose()

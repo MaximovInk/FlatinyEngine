@@ -37,6 +37,21 @@ namespace MaximovInk.FlatinyEngine.Core
             }
         }
 
+        public static Color ToColor(this Color4 color)
+        {
+            return Color.FromArgb((int)(color.A*255f), (int)(color.R * 255f), (int)(color.G * 255f), (int)(color.B * 255f));
+        }
+
+        public static Color4 ToColor4(this Color color)
+        {
+            return new Color4(color.R, color.G, color.B, color.A);
+        }
+
+        public static Vector4 ToVector(this Color color)
+        {
+            return new Vector4(color.R/255f,color.G/255f,color.B/255f,color.A/255f);
+        }
+
         public static Vector4 ToVector(this Color4 color)
         {
             return new Vector4(color.R, color.G, color.B, color.A);
@@ -91,6 +106,53 @@ namespace MaximovInk.FlatinyEngine.Core
             }
 
             return newArray;
+        }
+
+        public static void Fill<T>(this T[] source, T value)
+        {
+            for (int i = 0; i < source.Length; i++)
+            {
+                source[i] = value;
+            }
+        }
+
+        public static int Push<T>(this T[] source, T value)
+        {
+            var index = Array.IndexOf(source, default(T));
+
+            if (index != -1)
+            {
+                source[index] = value;
+            }
+
+            return index;
+        }
+
+        public static T[] RemoveAt<T>(this T[] source, int index)
+        {
+            T[] dest = new T[source.Length - 1];
+            if (index > 0)
+                Array.Copy(source, 0, dest, 0, index);
+
+            if (index < source.Length - 1)
+                Array.Copy(source, index + 1, dest, index, source.Length - index - 1);
+
+            return dest;
+        }
+
+        public static uint ToUInt(this Color color)
+        {
+            return (uint)((color.A << 24) | (color.R << 16) |
+                          (color.G << 8) | (color.B << 0));
+        }
+
+        public static Color ToColor(this uint color)
+        {
+            byte a = (byte)(color >> 24);
+            byte r = (byte)(color >> 16);
+            byte g = (byte)(color >> 8);
+            byte b = (byte)(color >> 0);
+            return Color.FromArgb(a, r, g, b);
         }
 
         public static Bitmap FontToTexture(Font font,out List<Vector4> texCoords, out List<Vector2> pSizes)
