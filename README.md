@@ -31,4 +31,14 @@ Handle input
 - Mathf<br/>
 Useful functions
 
+Version 0.2
+- GUI Interactions(MouseOver,Dragging)
+- Renderer now is base component of graphic components
+- MeshRenderer now implements Renderer
+- Created tilemaps namespace and classes Tilemap,Tile
+- Mesh now contains method to get new grid mesh Mesh.Grid(width,height)
+
+Version 0.1
+- Basic rendering
+
 
