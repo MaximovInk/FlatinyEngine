@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MaximovInk.FlatinyEngine.Core.Compnents
 {
-    public class TilemapRenderer : IComponent, IRender, w
+    public class TilemapRenderer : IComponent, IRender
     {
         public Texture2D textureAtlas { get; set; }
         public int pixelsPerTileP { get; set; } = 8;
