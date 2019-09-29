@@ -59,7 +59,6 @@
     <Compile Include="Core\Compnents\SpriteRenderer.cs" />
     <Compile Include="Core\Compnents\TextRenderer.cs" />
     <Compile Include="Core\Compnents\TilemapRenderer.cs" />
-    <Compile Include="Core\Compnents\w.cs" />
     <Compile Include="Core\Graphics\Mesh.cs" />
     <Compile Include="Core\Graphics\TextLayout.cs" />
     <Compile Include="Core\GUI\GUIButton.cs" />

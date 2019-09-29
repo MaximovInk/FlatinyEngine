@@ -69,7 +69,8 @@ namespace FlatinyEngine
             var tx1 = go1.AddComponent<TextureRenderer>();
             var tx2 = go2.AddComponent<TextureRenderer>();
             var txtR = go3.AddComponent<TextRenderer>();*/
-            var tmp = go4.AddComponent(new TilemapRenderer()) as TilemapRenderer;
+            //var tmp = go4.AddComponent(new TilemapRenderer()) as TilemapRenderer;
+
             var tx = go.AddComponent(new TextureRenderer()) as TextureRenderer;
             var tx1 = go1.AddComponent(new TextureRenderer()) as TextureRenderer;
             var tx2 = go2.AddComponent(new TextureRenderer()) as TextureRenderer;
@@ -84,10 +85,15 @@ namespace FlatinyEngine
             mesh.ApplyData();*/
             //            var tmp = go4.AddComponent<TilemapRenderer>();
             
-            tmp.textureAtlas = new Texture2D("Content/tiles.png");
+            /*tmp.textureAtlas = Texture2D.OnePixel;
+            tmp.offset = 0;
+            tmp.padding = 0;
+            tmp.pixelsPerTileP = 1;
             tmp.SliceAtlas();
 
-            tmp.SetTile(1, 2, 0);
+            tmp.SetTile(-1, -1, 0);
+            tmp.SetTile(0, 0, 0);
+            tmp.SetColor(1, 2, Color.Red);
             tmp.SetTile(2, 2, 1);
             tmp.SetTile(3, 3, 2);
             tmp.SetTile(4, 3, 3);
@@ -102,7 +108,7 @@ namespace FlatinyEngine
             tmp.SetTile(6, 9, 11);
 
 
-            tmp.UpdateMesh();
+            tmp.UpdateMesh();*/
 
             tx.Texture = new Texture2D("Content/16px.png");
             txtR.SetFont(new TextureFont("Content/good.ttf"));

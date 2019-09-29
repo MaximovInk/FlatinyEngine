@@ -40,6 +40,7 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
         {
             var ch = GetOrCreateChunk(x, y);
             ch.SetTile(IntoChunk(x), IntoChunk(y), tileId);
+            
             if (tileId < tiles.Count && tileId >= 0)
             {
                 ch.SetTileCoords(IntoChunk(x), IntoChunk(y), tiles[tileId]);
@@ -90,7 +91,9 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
 
         private int IntoChunk(int pos)
         {
-            return (int)((float)pos % CHUNK_SIZE);
+            if(pos > 0)
+                return (int)((float)pos % CHUNK_SIZE);
+            return (int)(CHUNK_SIZE-((float)pos % CHUNK_SIZE));
         }
 
         public void SetColor(int x, int y, Color color)
