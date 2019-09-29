@@ -9,6 +9,8 @@
 - Tilemaps
 - Plugins
 
+# Log
+
 Version 0.3
 - Refactoring of code
 - New working component: TilemapRenderer
