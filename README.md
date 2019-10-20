@@ -4,13 +4,13 @@
 # Futures
 - [ ] GUI
 - [ ] Plugin system
-- [ ] Effects/Shaders
+- [x] Effects/Shaders
 - [ ] Modern OpenGL
-- [ ] Component system
-- [ ] Custom meshes
-- [ ] Text rendering
-- [ ] Texture rendering
-- [ ] Sprite rendering
+- [x] Component system
+- [x] Custom meshes
+- [x] Text rendering
+- [x] Texture rendering
+- [x] Sprite rendering
 - [ ] Atlas packing
 - [ ] Animation 
 - [ ] Tilemaps
