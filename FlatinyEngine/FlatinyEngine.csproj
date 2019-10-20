@@ -50,21 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Compnents\IEnd.cs" />
-    <Compile Include="Core\Compnents\IStart.cs" />
-    <Compile Include="Core\Compnents\IUpdate.cs" />
-    <Compile Include="Core\Compnents\IRender.cs" />
+    <Compile Include="Core\Graphics\ScreenRenderer.cs" />
+    <Compile Include="Core\IEnd.cs" />
+    <Compile Include="Core\IStart.cs" />
+    <Compile Include="Core\IUpdate.cs" />
+    <Compile Include="Core\IRender.cs" />
     <Compile Include="Core\Compnents\MeshRenderer.cs" />
-    <Compile Include="Core\Compnents\Renderer.cs" />
+    <Compile Include="Core\Graphics\Renderer.cs" />
     <Compile Include="Core\Compnents\SpriteRenderer.cs" />
     <Compile Include="Core\Compnents\TextRenderer.cs" />
-    <Compile Include="Core\Compnents\TilemapRenderer.cs" />
     <Compile Include="Core\Graphics\Mesh.cs" />
     <Compile Include="Core\Graphics\TextLayout.cs" />
-    <Compile Include="Core\GUI\GUIButton.cs" />
-    <Compile Include="Core\GUI\GUIRawImage.cs" />
-    <Compile Include="Core\GUI\GUIText.cs" />
-    <Compile Include="Core\GUI\Graphics.cs" />
     <Compile Include="Core\ProcessManagment\Screen.cs" />
     <Compile Include="Core\Graphics\Shaders.cs" />
     <Compile Include="Core\Graphics\TextureFont.cs" />
@@ -74,10 +70,6 @@
     <Compile Include="Core\Compnents\IComponent.cs" />
     <Compile Include="Core\GameWindowWrapper.cs" />
     <Compile Include="Core\Graphics\Vertex.cs" />
-    <Compile Include="Core\GUI\GUICanvas.cs" />
-    <Compile Include="Core\ProcessManagment\GUILayer.cs" />
-    <Compile Include="Core\GUI\GUIRect.cs" />
-    <Compile Include="Core\GUI\GUIImage.cs" />
     <Compile Include="Core\HierarchyObject.cs" />
     <Compile Include="Core\IPlugin.cs" />
     <Compile Include="Core\Logger.cs" />
@@ -95,12 +87,8 @@
     <Compile Include="Core\SceneManagment\SceneManager.cs" />
     <Compile Include="Core\Graphics\Shader.cs" />
     <Compile Include="Core\Graphics\Effect.cs" />
-    <Compile Include="Core\Graphics\SpriteBatch.cs" />
     <Compile Include="Core\Graphics\StandartShaders.cs" />
     <Compile Include="Core\Graphics\Texture2D.cs" />
-    <Compile Include="Core\Tilemaps\Chunk.cs" />
-    <Compile Include="Core\Tilemaps\Tile.cs" />
-    <Compile Include="Core\Tilemaps\Tileset.cs" />
     <Compile Include="Core\Utilites.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Input.cs" />

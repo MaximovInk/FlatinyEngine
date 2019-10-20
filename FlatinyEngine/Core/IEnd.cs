@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaximovInk.FlatinyEngine.Core.Compnents
+namespace MaximovInk.FlatinyEngine.Core
 {
-    public interface IStart
+    public interface IEnd
     {
-        void Start();
+        void End();
     }
 }

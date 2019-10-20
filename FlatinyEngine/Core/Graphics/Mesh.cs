@@ -10,29 +10,17 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 {
     public class Mesh : IDisposable
     {
-        private int VBO = -1;
-        //private int IBO = -1;
-        private int VAO;
-
-        //public uint[] indices;
+        private int VBO = 0;
+        private int VAO = 0;
 
         public Vertex[] vertices;
 
         private int lastVertsLenght = 0;
-        //private int lastIndicesLenght = 0;
 
         public Mesh()
         {
             GenBuffers();
         }
-
-        /*public void FillIndices(uint indice)
-        {
-            for (int i = 0; i < indices.Length; i++)
-            {
-                indices[i] = indice;
-            }
-        }*/
 
         public void FillVertices(Vertex vertex)
         {
@@ -61,16 +49,6 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             {
                 UpdateBufferData();
             }
-
-            /*if (lastIndicesLenght == indices.Length && lastVertsLenght == vertices.Length)
-            {
-                UpdateBufferSubData();
-            }
-            else
-            {
-                UpdateBufferData();
-            }*/
-
         }
 
         public void Bind()
@@ -97,7 +75,6 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         private void GenBuffers()
         {
             VBO = GL.GenBuffer();
-            //IBO = GL.GenBuffer();
             VAO = GL.GenVertexArray();
         }
 
@@ -105,27 +82,22 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         {
             GL.BindVertexArray(VAO);
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
-            //GL.BindBuffer(BufferTarget.ElementArrayBuffer, IBO);
         }
 
         private void UpdateBufferSubData()
         {
             GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, (IntPtr)(Vertex.SizeInBytes * vertices.Length), vertices);
-            //GL.BufferSubData(BufferTarget.ElementArrayBuffer, (IntPtr)0, (IntPtr)(sizeof(uint) * indices.Length), indices);
-           
         }
 
         private void UpdateBufferData()
         {
             GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Vertex.SizeInBytes * vertices.Length), vertices, BufferUsageHint.DynamicDraw);
-           // GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(sizeof(uint) * indices.Length), indices, BufferUsageHint.DynamicDraw);
         }
 
         public void Dispose()
         {
             Unbind();
             GL.DeleteBuffer(VBO);
-            //GL.DeleteBuffer(IBO);
             GL.DeleteVertexArray(VAO);
         }
 
@@ -144,19 +116,6 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
                         new Vertex(new Vector2(0,1), new Vector2(0,1),  System.Drawing.Color.White)
                     }
                 };
-/*{
-                new Vertex(new Vector2(0,0), new Vector2(0,0), System.Drawing.Color.White),
-                new Vertex(new Vector2(1,0), new Vector2(1,0),  System.Drawing.Color.White),
-                new Vertex(new Vector2(1,1), new Vector2(1,1),  System.Drawing.Color.White),
-                new Vertex(new Vector2(0,1), new Vector2(0,1),  System.Drawing.Color.White)
-},
-
-                    indices = new uint[6]
-{
-            0, 1, 2,
-            0, 2, 3
-}
-                };*/
 
                 mesh.ApplyData();
 
@@ -167,8 +126,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public static Mesh Grid(int x, int y)
         {
             Mesh mesh = Mesh.Empty;
-            mesh.vertices = new Vertex[x * y * 4];
-            //mesh.indices = new uint[x * y * 6];
+            mesh.vertices = new Vertex[x * y * 6];
             int offset = 0;
 
             for (uint ix = 0; ix < x; ix++)
@@ -188,12 +146,6 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
                     mesh.vertices[i3] = new Vertex(new Vector2(ix, iy), new Vector2(0, 0), System.Drawing.Color.White);
                     mesh.vertices[i4] = new Vertex(new Vector2(ix+1, iy+1), new Vector2(1, 1), System.Drawing.Color.White);
                     mesh.vertices[i5] = new Vertex(new Vector2(ix, iy+1), new Vector2(0, 1), System.Drawing.Color.White);
-                    /*mesh.indices[ix * 6 + iy * 6 * x] = (uint)(i0);
-                    mesh.indices[ix * 6 + iy * 6 * x + 1] = (uint)(i1);
-                    mesh.indices[ix * 6 + iy * 6 * x + 2] = (uint)(i2);
-                    mesh.indices[ix * 6 + iy * 6 * x + 3] = (uint)(i0);
-                    mesh.indices[ix * 6 + iy * 6 * x + 4] = (uint)(i2);
-                    mesh.indices[ix * 6 + iy * 6 * x + 5] = (uint)(i3);*/
                     offset += x * 6;
                 }
             }
@@ -201,37 +153,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             mesh.ApplyData();
 
             return mesh;
-            /* Mesh mesh = Mesh.Empty;
-             mesh.vertices = new Vertex[x * y * 4];
-             mesh.indices = new uint[x * y * 6];
-             int offset = 0;
 
-             for (uint ix = 0; ix < x; ix++)
-             {
-                 for (uint iy = 0; iy < y; iy++)
-                 {
-                     var i0 = ix * 4 + iy * x * 4;
-                     var i1 = ix * 4 + iy * x * 4 + 1;
-                     var i2 = ix * 4 + iy * x * 4 + 2;
-                     var i3 = ix * 4 + iy * x * 4 + 3;
-
-                     mesh.vertices[i0] = new Vertex(new Vector2(ix, iy), new Vector2(0, 0), System.Drawing.Color.White);
-                     mesh.vertices[i1] = new Vertex(new Vector2(ix + 1, iy), new Vector2(1, 0), System.Drawing.Color.White);
-                     mesh.vertices[i2] = new Vertex(new Vector2(ix + 1, iy + 1), new Vector2(1, 1), System.Drawing.Color.White);
-                     mesh.vertices[i3] = new Vertex(new Vector2(ix, iy + 1), new Vector2(0, 1), System.Drawing.Color.White);
-                     mesh.indices[ix * 6 + iy * 6 * x] = (uint)(i0);
-                     mesh.indices[ix * 6 + iy * 6 * x + 1] = (uint)(i1);
-                     mesh.indices[ix * 6 + iy * 6 * x + 2] = (uint)(i2);
-                     mesh.indices[ix * 6 + iy * 6 * x + 3] = (uint)(i0);
-                     mesh.indices[ix * 6 + iy * 6 * x + 4] = (uint)(i2);
-                     mesh.indices[ix * 6 + iy * 6 * x + 5] = (uint)(i3);
-                     offset += x * 6;
-                 }
-             }
-
-             mesh.ApplyData();
-
-             return mesh;*/
         }
 
         public static Mesh Empty { get { return new Mesh(); } }

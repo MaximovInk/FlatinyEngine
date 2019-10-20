@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaximovInk.FlatinyEngine.Core.Compnents
+namespace MaximovInk.FlatinyEngine.Core
 {
-    public interface IUpdate
+    public interface IRender
     {
-        void Update(float deltaTime);
+        void Render(float deltaTime);
     }
 }

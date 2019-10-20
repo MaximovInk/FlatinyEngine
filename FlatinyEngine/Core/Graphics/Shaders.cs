@@ -28,54 +28,17 @@ in vec2 vertTexCoord;
 
 out vec2 fragTexCoord;
 
-uniform mat4 m;
-uniform mat4 p;
+uniform mat4 ObjectMatrix;
+uniform mat4 CameraProjection;
 
 
 void main() 
     {
     fragTexCoord = vertTexCoord;
     
-    gl_Position = p*m*vec4(vert,0,1);
+    gl_Position = CameraProjection*ObjectMatrix*vec4(vert,0,1);
     }
 ";
-
-
-
-
-        /* public const string TEXTURE_FRAGMENT = @"
- #version 430
-
- out vec4 outputColor;
-
- in vec2 texCoord;
-
- uniform sampler2D texture0;
-
- void main()
- {
-     outputColor = texture(texture0, texCoord);
- }
- ";
-
- public const string TEXTURE_VERTEX = @"
- #version 430 core
-
- layout(location = 1) in vec2 inPos;
-
- layout(location = 0) in vec2 inTexCoord;
-
- out vec2 texCoord;
-
- uniform mat4 transform;
-
- void main(void)
- {
-     gl_Position = transform * vec4(inPos , 0.0f, 1.0f);
-     texCoord = vec2(inTexCoord.x, inTexCoord.y);
- }
- ";*/
-
 
     }
 }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaximovInk.FlatinyEngine.Core.Tilemaps
+namespace MaximovInk.FlatinyEngine.Core
 {
-    public class Tileset
+    public interface IUpdate
     {
+        void Update(float deltaTime);
     }
 }

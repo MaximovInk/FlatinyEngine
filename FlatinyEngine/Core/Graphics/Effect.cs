@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace MaximovInk.FlatinyEngine.Core.Graphics
@@ -6,6 +7,8 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
     public class Effect : IDisposable
     {
         private int Handle;
+
+        public static Effect Default = new Effect(Shaders.VERTEX,Shaders.FRAGMENT);
 
         public Effect(string vertex_shader ,string fragment_shader)
         {
@@ -24,6 +27,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.DetachShader(Handle, frag.Handle);
             vert.Dispose();
             frag.Dispose();
+        }
+
+        public void SetUnfiormMatrix4(string name, bool transpose, ref Matrix4 matrix)
+        {
+            GL.ProgramUniformMatrix4(Handle, GetUniformLocation(name), transpose, ref matrix);
         }
 
         public void SetUniform(string name, double num)
@@ -51,7 +59,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.UseProgram(Handle);
         }
 
-        public void Unuse()
+        public void Unbind()
         {
             GL.UseProgram(0);
         }

@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using MaximovInk.FlatinyEngine.Core.ProcessManagment;
 using MaximovInk.FlatinyEngine.Core.Graphics;
-using MaximovInk.FlatinyEngine.Core.GUI;
+
 
 namespace MaximovInk.FlatinyEngine.Core
 {
@@ -37,16 +37,11 @@ namespace MaximovInk.FlatinyEngine.Core
             var inputProcess = Input.Init(Window);
             var camProcess = Screen.Init(Window);
 
-            GUILayer.Init(Window, out var guiRenderProcess, out var guiUpdateProcess);
-
             ProcessManager.RegisterUpdateHandler(sceneProcess, 1);
             ProcessManager.RegisterUpdateHandler(inputProcess, 0);
-            ProcessManager.RegisterUpdateHandler(guiUpdateProcess, 2);
 
             ProcessManager.RegisterRenderHandler(sceneProcess, 1);
             ProcessManager.RegisterRenderHandler(camProcess, 2);
-            ProcessManager.RegisterRenderHandler(guiRenderProcess, 0);
-           
 
             Window.Closed += (object sender, EventArgs e) => OnWindowClosed();
             Window.Closing += (object sender, System.ComponentModel.CancelEventArgs e) => OnWindowClosing();
