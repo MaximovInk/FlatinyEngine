@@ -19,7 +19,7 @@ namespace MaximovInk.FlatinyEngine.Core.Tilemaps
             public readonly int index;
             public uint[] colors = new uint[4];
             public uint[] indices = new uint[6];
-            public ColoredVertex[] vertices = new ColoredVertex[4];
+            public Vertex[] vertices = new Vertex[4];
 
             public TileVertexData(int index)
             {

@@ -20,6 +20,9 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.GetShader(Handle, ShaderParameter.CompileStatus, out status_code);
             if (status_code != 1)
                 throw new ApplicationException(info);
+            else
+                Logger.Log("Shader succesfully compile , info: " + info);
+
         }
 
         public void Dispose()

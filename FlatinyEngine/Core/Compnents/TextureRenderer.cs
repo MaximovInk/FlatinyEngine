@@ -11,6 +11,7 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
         public Texture2D Texture { get; set; }
         private Color color { get; set; } = Color.White;
 
+        public Effect Effect { get; set; }
         public bool enabled { get; set; }
         public GameObject gameObject { get; set; }
         public string tag { get; set; }
@@ -38,14 +39,26 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
 
         public override void Render(float deltaTime)
         {
+           
             if (Texture != null)
             {
                 Texture.Bind();
 
+                
+                if (Effect != null)
+                {
+                    Effect.Use();
+                }
                 base.Render(deltaTime);
 
                 Texture.Unbind();
+                if (Effect != null)
+                {
+                    Effect.Unuse();
+                }
             }
+
+           
         }
     }
 }

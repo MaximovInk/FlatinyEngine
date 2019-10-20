@@ -88,7 +88,7 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
         
         public virtual void OnRender()
         {
-            if (mesh != null && mesh.indices != null)
+            if (mesh != null/* && mesh.indices != null*/)
             {
                 mesh.Bind();
                 GL.MatrixMode(MatrixMode.Projection);
@@ -99,16 +99,16 @@ namespace MaximovInk.FlatinyEngine.Core.GUI
                 GL.EnableClientState(ArrayCap.ColorArray);
                 GL.EnableClientState(ArrayCap.IndexArray);
 
-                GL.VertexPointer(2, VertexPointerType.Float, ColoredVertex.SizeInBytes, 0);
-                GL.TexCoordPointer(2, TexCoordPointerType.Float, ColoredVertex.SizeInBytes, Vector2.SizeInBytes);
-                GL.ColorPointer(4, ColorPointerType.Float, ColoredVertex.SizeInBytes, Vector2.SizeInBytes * 2);
+                GL.VertexPointer(2, VertexPointerType.Float, Vertex.SizeInBytes, 0);
+                GL.TexCoordPointer(2, TexCoordPointerType.Float, Vertex.SizeInBytes, Vector2.SizeInBytes);
+                GL.ColorPointer(4, ColorPointerType.Float, Vertex.SizeInBytes, Vector2.SizeInBytes * 2);
 
                 GL.LoadIdentity();
                 var matrix = Matrix4.CreateScale(Rect.Width * UnitX, Rect.Height * UnitY, 1) * GetGlobalMatrix()*Canvas.Ortho;
                 GL.LoadMatrix(ref matrix);
                 GL.Scale(1, -1, 1);
 
-                GL.DrawElements(PrimitiveType.Triangles, mesh.indices.Length, DrawElementsType.UnsignedInt, 0);
+                //GL.DrawElements(PrimitiveType.Triangles, mesh.indices.Length, DrawElementsType.UnsignedInt, 0);
 
                 GL.DisableClientState(ArrayCap.VertexArray);
                 GL.DisableClientState(ArrayCap.TextureCoordArray);

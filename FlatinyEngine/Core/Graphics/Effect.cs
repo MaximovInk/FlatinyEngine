@@ -18,6 +18,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.AttachShader(Handle, frag.Handle);
             GL.LinkProgram(Handle);
             GL.GetProgramInfoLog(Handle,out string info);
+            Logger.Log(info);
 
             GL.DetachShader(Handle, vert.Handle);
             GL.DetachShader(Handle, frag.Handle);
@@ -26,6 +27,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         }
 
         public void SetUniform(string name, double num)
+        {
+            GL.Uniform1(GetUniformLocation(name), num);
+        }
+
+        public void SetUniform(string name, int num)
         {
             GL.Uniform1(GetUniformLocation(name), num);
         }

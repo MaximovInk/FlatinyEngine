@@ -24,13 +24,21 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public static Vector3 Position;
         public static float Rotation;
 
+        public static Matrix4 ProjectionMatrix { get; private set; }
+
         public static RenderProcess Init(GameWindow window)
         {
             Screen.window = window;
             var rp = new RenderProcess();
             rp.onRender += OnRender;
             return rp;
-        }
+        }   
+        
+        /*var proj = ProjectionMatrix =
+                        Matrix4.CreateTranslation(new Vector3(-Position.X * window.Width, -Position.Y * window.Height, -Position.Z)) *
+                        Matrix4.CreateScale(Size, -Size, 1) * Matrix4.CreateRotationZ(Rotation) *
+                        Matrix4.CreateOrthographic(window.Width, window.Height, Near, Far)
+        ;*/
 
         private static void OnRender(float deltaTime)
         {
@@ -40,11 +48,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
             GL.MatrixMode(MatrixMode.Projection);
 
-            Matrix4 proj =
+            var proj = ProjectionMatrix =
                         Matrix4.CreateTranslation(new Vector3(-Position.X * window.Width, -Position.Y * window.Height, -Position.Z)) *
                         Matrix4.CreateScale(Size, -Size, 1) * Matrix4.CreateRotationZ(Rotation) *
                         Matrix4.CreateOrthographic(window.Width, window.Height, Near, Far)
-                   ;
+        ;
 
             GL.LoadMatrix(ref proj);
             GL.MatrixMode(MatrixMode.Modelview);

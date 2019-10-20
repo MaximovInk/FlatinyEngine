@@ -60,6 +60,12 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.BindTexture(TextureTarget.Texture2D, Handle);
         }
 
+        public void Bind(Effect effect)
+        {
+            Bind();
+            effect.SetUniform("texture0", Handle);
+        }
+
         public void Unbind()
         {
             GL.BindTexture(TextureTarget.Texture2D,0);
