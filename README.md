@@ -2,6 +2,7 @@
 2D engine made in OpenTK/C# Inspired by Unity,Monogame and GMS2
 
 # TODO
+- Change fixed opengl to modern opengl (50%)
 - Shaders
 - Fix ui buttons
 - Materials
@@ -10,6 +11,10 @@
 - Plugins
 
 # Log
+
+Version 0.4
+- Big change : Moving to Modern OpenGL (WIP)
+- Removed ColoredVertex, now it is just Vertex 
 
 Version 0.3
 - Refactoring of code
