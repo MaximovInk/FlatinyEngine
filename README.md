@@ -2,13 +2,15 @@
 2D engine made in OpenTK/C# Inspired by Unity,Monogame and GMS2
 
 # TODO
-- Change fixed opengl to modern opengl (50%)
-- Shaders
-- Fix ui buttons
-- Materials
-- Good ui
-- Tilemaps
-- Plugins
+- [ ] Reimplementation GUI
+- [ ] Change fixed opengl to modern opengl (50%)
+- [x] Shaders
+- [x] Effects
+- [ ] Physics
+- [ ] Editor tools
+- [ ] Plugins
+- [ ] Tilemaps
+
 
 # Log
 
