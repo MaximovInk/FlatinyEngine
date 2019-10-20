@@ -28,8 +28,15 @@
 # Log
 
 Version 0.4
-- Big change : Moving to Modern OpenGL (WIP)
+- Modern OpenGL
+- Work Shaders / Effects
 - Removed ColoredVertex, now it is just Vertex 
+- Removed GUISystem
+- Code refactoring and cleanup
+- Added ScreenRenderer and ScreenProjection property for Screen
+- Moved IRender,IUpdate,IStart,IEnd from Core.Components to Core namespace
+- Moved Renderer from Core.Components to Core.Graphics namespace
+- Removed deprecated OpenGL code
 
 Version 0.3
 - Refactoring of code
