@@ -1,15 +1,28 @@
 # FlatinyEngine
 2D engine made in OpenTK/C# Inspired by Unity,Monogame and GMS2
 
-# TODO
-- [ ] Reimplementation GUI
-- [ ] Change fixed opengl to modern opengl (50%)
-- [x] Shaders
-- [x] Effects
-- [ ] Physics
-- [ ] Editor tools
-- [ ] Plugins
+# Futures
+- [ ] GUI
+- [ ] Plugin system
+- [ ] Effects/Shaders
+- [ ] Modern OpenGL
+- [ ] Component system
+- [ ] Custom meshes
+- [ ] Text rendering
+- [ ] Texture rendering
+- [ ] Sprite rendering
+- [ ] Atlas packing
+- [ ] Animation 
 - [ ] Tilemaps
+- [ ] Physics
+- [ ] Editor
+
+# TODO
+- More fast and functional text rendering
+- Reimplementation GUI
+- Change fixed opengl to modern opengl (50%)
+- Plugins
+- Tilemaps
 
 
 # Log
