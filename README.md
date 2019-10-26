@@ -22,7 +22,7 @@
 - Reimplementation GUI
 - Plugins
 - Tilemaps
-
+- Joysticks and gamepads
 
 # Log
 
