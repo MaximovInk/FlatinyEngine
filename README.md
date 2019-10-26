@@ -26,6 +26,15 @@
 
 # Log
 
+Version 0.5
+- Reworked game class
+- Removed GameWindowWrapper class
+- Reworked Screen class and moved to Graphics folder
+- Reworked Input
+- Fixed input, how handles input only in focus
+- Moved ScreenGraph from Core.ProcessManagment to Core namespace
+- Removed unused assets
+
 Version 0.4
 - Modern OpenGL
 - Work Shaders / Effects
