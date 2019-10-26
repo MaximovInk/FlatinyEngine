@@ -25,11 +25,8 @@ namespace MaximovInk.FlatinyEngine
 
             if (gameWindow != null)
             {
-                gameWindow.KeyUp += KeyUp;
-                gameWindow.KeyDown += KeyDown;
-                gameWindow.MouseDown += MouseDown;
-                gameWindow.MouseUp += MouseUp;
-                gameWindow.MouseMove += (object sender, MouseMoveEventArgs e)=> {
+                gameWindow.FocusedChanged += GameWindow_FocusedChanged;
+                gameWindow.MouseMove += (sender, e)=> {
                     MouseX = e.X;
                     MouseY = e.Y;
                     MouseXDelta = e.XDelta;
@@ -42,42 +39,64 @@ namespace MaximovInk.FlatinyEngine
             return handler;
         }
 
+        private static void GameWindow_FocusedChanged(object sender, System.EventArgs e)
+        {
+            if (gameWindow.Focused)
+            {
+                ResetInput();
+            }
+        }
+
+        public static void ResetInput()
+        {
+            mouseState = Mouse.GetState();
+            keyboardState = Keyboard.GetState();
+
+            lastKeyboardState = keyboardState;
+            lastMouseState = mouseState;
+        }
 
         private static void Update(float deltaTime)
         {
+            if (!gameWindow.Focused)
+                return;
+
             lastKeyboardState = keyboardState;
             lastMouseState = mouseState;
+
             mouseState = Mouse.GetState();
             keyboardState = Keyboard.GetState();
         }
 
-        private static void KeyDown(object sender, KeyboardKeyEventArgs e) =>
-            keyboardState = e.Keyboard;
+        public static bool GetKey(Key key)
+        {
+            return keyboardState[key];
+        }
 
-        private static void KeyUp(object sender, KeyboardKeyEventArgs e) =>
-            keyboardState = e.Keyboard;
+        public static bool GetKeyDown(Key key)
+        {
+            return keyboardState[key] && (keyboardState[key] != lastKeyboardState[key]);
+        }
 
-        private static void MouseDown(object sender, MouseButtonEventArgs args) =>
-            mouseState = args.Mouse;
+        public static bool GetKeyUp(Key key)
+        {
+            return lastKeyboardState[key] && (keyboardState[key] != lastKeyboardState[key]);
+        }
 
-        private static void MouseUp(object sender, MouseButtonEventArgs args) =>
-            mouseState = args.Mouse;
+        public static bool GetMouseButton(MouseButton button)
+        {
+            return mouseState[button];
+        }
 
-        public static bool GetKey(Key key) => keyboardState[key];
+        public static bool GetMouseButtonDown(MouseButton button)
+        {
+            return mouseState[button] && (mouseState[button] != lastMouseState[button]);
+        }
 
-        public static bool GetKeyDown(Key key) =>
-            keyboardState[key] && (keyboardState[key] != lastKeyboardState[key]);
+        public static bool GetMouseButtonUp(MouseButton button)
+        {
+            return lastMouseState[button] && (mouseState[button] != lastMouseState[button]);
+        }
 
-        public static bool GetKeyUp(Key key) =>
-            lastKeyboardState[key] && (keyboardState[key] != lastKeyboardState[key]);
-
-        public static bool GetMouseButton(MouseButton button) =>
-            mouseState[button];
-
-        public static bool GetMouseButtonDown(MouseButton button) =>
-           mouseState[button] && (mouseState[button] != lastMouseState[button]);
-
-        public static bool GetMouseButtonUp(MouseButton button) =>
-            lastMouseState[button] && (mouseState[button] != lastMouseState[button]);
     }
 }

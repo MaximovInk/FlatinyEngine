@@ -61,14 +61,13 @@
     <Compile Include="Core\Compnents\TextRenderer.cs" />
     <Compile Include="Core\Graphics\Mesh.cs" />
     <Compile Include="Core\Graphics\TextLayout.cs" />
-    <Compile Include="Core\ProcessManagment\Screen.cs" />
+    <Compile Include="Core\Graphics\Screen.cs" />
     <Compile Include="Core\Graphics\Shaders.cs" />
     <Compile Include="Core\Graphics\TextureFont.cs" />
     <Compile Include="Core\Compnents\Transform.cs" />
     <Compile Include="Core\Compnents\TextureRenderer.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\Compnents\IComponent.cs" />
-    <Compile Include="Core\GameWindowWrapper.cs" />
     <Compile Include="Core\Graphics\Vertex.cs" />
     <Compile Include="Core\HierarchyObject.cs" />
     <Compile Include="Core\IPlugin.cs" />
@@ -82,7 +81,7 @@
     <Compile Include="Core\ProcessManagment\IRenderHandler.cs" />
     <Compile Include="Core\ProcessManagment\IUpdateHandler.cs" />
     <Compile Include="Core\ProcessManagment\ProcessManager.cs" />
-    <Compile Include="Core\ProcessManagment\SceneGraph.cs" />
+    <Compile Include="Core\SceneGraph.cs" />
     <Compile Include="Core\SceneManagment\Scene.cs" />
     <Compile Include="Core\SceneManagment\SceneManager.cs" />
     <Compile Include="Core\Graphics\Shader.cs" />

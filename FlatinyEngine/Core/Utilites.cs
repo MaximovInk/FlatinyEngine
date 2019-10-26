@@ -26,8 +26,8 @@ namespace MaximovInk.FlatinyEngine.Core
             [DllImport("Gdi32.dll")]
             public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
         }
-        public static string CharSheet
-                = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ";
+
+        public const string CharSheet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ";
 
         public static void Each<T>(this IEnumerable<T> items, Action<T> action)
         {

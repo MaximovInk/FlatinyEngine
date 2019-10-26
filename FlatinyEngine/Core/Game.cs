@@ -6,77 +6,34 @@ using System.Drawing;
 using MaximovInk.FlatinyEngine.Core.ProcessManagment;
 using MaximovInk.FlatinyEngine.Core.Graphics;
 
-
 namespace MaximovInk.FlatinyEngine.Core
 {
-    public class Game : IDisposable
+    public class Game : GameWindow
     {
-        private static GameWindowWrapper Window;
-
-        public string Title { get { return Window.Title; } set { Window.Title = value; } }
-
-        public VSyncMode VSync { get { return Window.VSync; } set { Window.VSync = value; } }
-
-        public Size ClientSize => Window.ClientSize;
-
-        public static int Width { get { return Window.Width; } set { Window.Width = value; } }
-        public static int Height { get { return Window.Height; } set { Window.Height = value; } }
-
-        public float Time { get; private set; }
-
-        protected SceneGraph sceneProcess;
+        protected SceneGraph SceneProcess;
  
-        public Game()
+        public Game():base(800,600,GraphicsMode.Default, "Flatiny")
         {
-            Window = new GameWindowWrapper(800, 600, GraphicsMode.Default, string.Empty);
         }
 
-        public void Run()
+        public new void Run()
         {
-            sceneProcess = new SceneGraph();
-            var inputProcess = Input.Init(Window);
-            var camProcess = Screen.Init(Window);
+            SceneProcess = new SceneGraph();
+            var inputProcess = Input.Init(this);
+            var camProcess = Screen.Init(this);
 
-            ProcessManager.RegisterUpdateHandler(sceneProcess, 1);
+            ProcessManager.RegisterUpdateHandler(SceneProcess, 1);
             ProcessManager.RegisterUpdateHandler(inputProcess, 0);
 
-            ProcessManager.RegisterRenderHandler(sceneProcess, 1);
+            ProcessManager.RegisterRenderHandler(SceneProcess, 1);
             ProcessManager.RegisterRenderHandler(camProcess, 2);
 
-            Window.Closed += (object sender, EventArgs e) => OnWindowClosed();
-            Window.Closing += (object sender, System.ComponentModel.CancelEventArgs e) => OnWindowClosing();
-            Window.Load += (object sender, EventArgs e) => { Window.Icon = Properties.Resources.icon;  OnLoad(); };
-            Window.Unload += (object sender, EventArgs e) => OnUnload();
-            Window.UpdateFrame += (object sender, FrameEventArgs e) => { OnUpdate((float)e.Time); Time += (float)e.Time; };
-            Window.RenderFrame += (object sender, FrameEventArgs e) => { OnRender((float)e.Time);  };
-            Window.Resize += (object sender, EventArgs e) => OnResize();
+            VSync = VSyncMode.Off;
 
-            Window.Run();
+            base.Run();
         }
 
-        protected virtual void OnResize()
-        {
-            GL.Viewport(0, 0, Width, Height);
-        }
-
-
-        protected virtual void OnRender(float deltaTime)
-        {
-            ProcessManager.Render(deltaTime);
-            SwapBuffers();
-        }
-
-        protected virtual void OnUpdate(float deltaTime)
-        {
-            ProcessManager.Update(deltaTime);
-        }
-
-        protected virtual void OnUnload()
-        {
-            
-        }
-
-        protected virtual void OnLoad()
+        protected override void OnLoad(EventArgs e)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -93,22 +50,22 @@ namespace MaximovInk.FlatinyEngine.Core
 
             Logger.Log("Loading complete");
         }
-
-        protected virtual void OnWindowClosing()
+        
+        protected override void OnResize(EventArgs e)
         {
-            
+            GL.Viewport(0, 0, Width, Height);
         }
 
-        protected virtual void OnWindowClosed()
+        protected override void OnRenderFrame(FrameEventArgs e)
         {
-            
+            ProcessManager.Render((float)e.Time);
+            SwapBuffers();
         }
 
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            ProcessManager.Update((float)e.Time);
+        }
 
-
-        private void SwapBuffers() => Window.SwapChain();
-
-        public void Dispose() =>
-            Window.Dispose();
     }
 }
