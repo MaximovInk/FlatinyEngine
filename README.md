@@ -20,10 +20,9 @@
 # TODO
 - More fast and functional text rendering
 - Reimplementation GUI
-- Change fixed opengl to modern opengl (50%)
 - Plugins
 - Tilemaps
-
+- Joysticks and gamepads
 
 # Log
 
