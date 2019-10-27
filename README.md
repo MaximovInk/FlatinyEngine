@@ -2,10 +2,10 @@
 2D engine made in OpenTK/C# Inspired by Unity,Monogame and GMS2
 
 # Futures
-- [ ] GUI
+- [x] GUI
 - [ ] Plugin system
 - [x] Effects/Shaders
-- [ ] Modern OpenGL
+- [x] Modern OpenGL
 - [x] Component system
 - [x] Custom meshes
 - [x] Text rendering
@@ -25,6 +25,21 @@
 - Joysticks and gamepads
 
 # Log
+
+Version 0.6
+- Added GUI System
+- Added Degree to Radians in Mathf class
+- Added RotatedRectangleF
+- Added SceneManager
+- Added SetUniform4 to Effect class
+- Added Colored fragment shader to shaders
+- SceneGraph renamed to Scene
+- Transform.Origin renamed to Pivot
+- Reworked ScreenRenderer class
+- Reworked sprite class
+- Fixed Input mouse
+- Removed ProcessManagment system , now it simpified
+- Clean up code
 
 Version 0.5
 - Reworked game class
