@@ -4,12 +4,12 @@ using OpenTK;
 using MaximovInk.FlatinyEngine.Core.Graphics;
 using MaximovInk.FlatinyEngine.Core;
 using MaximovInk.FlatinyEngine.Core.Compnents;
-using OpenTK.Graphics.OpenGL;
 
 namespace FlatinyEngine
 {
     public class TestWindow : Game
     {
+
         private GameObject go1;
         public static void Main()
         {
@@ -20,20 +20,25 @@ namespace FlatinyEngine
                 Logger.Log("Running...");
                 editorWindow.Run();
             }
-
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             VSync = VSyncMode.Adaptive;
-            
+
+            GUICanvas canvas = new GUICanvas();
+            canvas.Visible = false;
+            GUIRawImage image = new GUIRawImage();
+            GUIButton button = new GUIButton();
+            button.AddChild(image);
+            canvas.AddChild(button);
 
             var go = new GameObject();
             go1 = new GameObject();
 
-            SceneProcess.AddGameObject(go);
-            SceneProcess.AddGameObject(go1);
+            Scene.AddGameObject(go);
+            Scene.AddGameObject(go1);
 
             go.transform.Scale = new Vector3(1);
             go1.transform.Scale = new Vector3(1);
@@ -53,6 +58,23 @@ namespace FlatinyEngine
             txtR.SetText("Hello world");
 
             tx.Texture = new Texture2D("Content/16px.png");
+
+            button.SetXConstraint(new GUIRelativeConstraint(0.2f));
+            button.SetYConstraint(new GUIRelativeConstraint(0.2f));
+            button.SetWidthConstraint(new GUIRelativeConstraint(0.5f));
+            button.SetHeightConstraint(new GUIRelativeConstraint(0.5f));
+
+            image.Texture = tx.Texture;
+            image.RaycastTarget = false;
+            button.Graphics = image;
+
+            image.SetXConstraint(new GUIRelativeConstraint(0f));
+            image.SetYConstraint(new GUIRelativeConstraint(0f));
+            image.SetHeightConstraint(new GUIRelativeConstraint(1f));
+            image.SetWidthConstraint(new GUIRelativeConstraint(1f));
+
+            SceneManager.LoadScene(Scene);
+
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -77,16 +99,16 @@ namespace FlatinyEngine
 
             if (Input.GetKey(OpenTK.Input.Key.F))
             {
-                go1.transform.Position += Vector3.UnitX * (float)e.Time*2;
+                go1.transform.Position += Vector3.UnitX * (float)e.Time*5;
             }
             if (Input.GetKey(OpenTK.Input.Key.G))
             {
-                go1.transform.Position -= Vector3.UnitX * (float)e.Time*2;
+                go1.transform.Position -= Vector3.UnitX * (float)e.Time*5;
             }
 
-            Title = 1 / (float)e.Time + "-fps " + (float)e.Time + "-ms" + Screen.Size;
+            Title = 1 / (float)e.Time + "-fps " + (float)e.Time + "-ms";
 
-            Screen.Size -= Input.MouseScrollDelta * (float)e.Time*10;
+            Screen.Scale -= Input.MouseScrollDelta * (float)e.Time*10;
             
         }
     }

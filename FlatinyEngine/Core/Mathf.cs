@@ -14,6 +14,11 @@ namespace MaximovInk.FlatinyEngine.Core
             else return val;
         }
 
+        public static float Deg4Rad(float angle)
+        {
+            return PIover180*angle;
+        }
+
         public static Vector2 Clamp(this Vector2 vec, float min, float max)
         {
             return new Vector2(Clamp(vec.X, min, max), Clamp(vec.Y, min, max));

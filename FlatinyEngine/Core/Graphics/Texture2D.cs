@@ -60,12 +60,6 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             GL.BindTexture(TextureTarget.Texture2D, Handle);
         }
 
-        public void Bind(Effect effect)
-        {
-            Bind();
-            effect.SetUniform("texture0", Handle);
-        }
-
         public void Unbind()
         {
             GL.BindTexture(TextureTarget.Texture2D,0);
@@ -116,7 +110,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
     public class Sprite
     {
-        public Texture2D Texture { get; }
+        private Texture2D Texture { get; }
         public Rectangle Rect { get; } = Rectangle.Empty;
         public Vector4 Uv { get; } = Vector4.Zero;
         public Vector2 Pivot { get; } = Vector2.Zero;
@@ -124,6 +118,20 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
         public Sprite(Texture2D texture) : this (texture, new Rectangle(0, 0, texture.Width, texture.Height))
         {
             Texture = texture;
+        }
+
+        public void Bind()
+        {
+            if (Texture == null)
+                return;
+            Texture.Bind();
+        }
+
+        public void Unbind()
+        {
+            if (Texture == null)
+                return;
+            Texture.Unbind();
         }
 
         public Sprite(Texture2D texture, Rectangle rect)

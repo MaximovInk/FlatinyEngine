@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>3</WarningLevel>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -50,8 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\GUICenterConstraint.cs" />
     <Compile Include="Core\Graphics\ScreenRenderer.cs" />
+    <Compile Include="Core\GUI.cs" />
+    <Compile Include="Core\GUICanvas.cs" />
+    <Compile Include="Core\GUIConstraint.cs" />
+    <Compile Include="Core\GUIImage.cs" />
+    <Compile Include="Core\GUIPixelConstraint.cs" />
+    <Compile Include="Core\GUIRawImage.cs" />
+    <Compile Include="Core\GUIRect.cs" />
+    <Compile Include="Core\GUIRelativeConstraint.cs" />
     <Compile Include="Core\IEnd.cs" />
+    <Compile Include="Core\IGUIGraphics.cs" />
     <Compile Include="Core\IStart.cs" />
     <Compile Include="Core\IUpdate.cs" />
     <Compile Include="Core\IRender.cs" />
@@ -72,16 +84,10 @@
     <Compile Include="Core\HierarchyObject.cs" />
     <Compile Include="Core\IPlugin.cs" />
     <Compile Include="Core\Logger.cs" />
-    <Compile Include="Core\ProcessManagment\IEndHandler.cs" />
-    <Compile Include="Core\ProcessManagment\RenderProcess.cs" />
-    <Compile Include="Core\ProcessManagment\UpdateProcess.cs" />
-    <Compile Include="Core\ProcessManagment\IHandler.cs" />
-    <Compile Include="Core\ProcessManagment\IStartHandler.cs" />
     <Compile Include="Core\Mathf.cs" />
-    <Compile Include="Core\ProcessManagment\IRenderHandler.cs" />
-    <Compile Include="Core\ProcessManagment\IUpdateHandler.cs" />
-    <Compile Include="Core\ProcessManagment\ProcessManager.cs" />
-    <Compile Include="Core\SceneGraph.cs" />
+    <Compile Include="Core\RotatedRectangleF.cs" />
+    <Compile Include="Core\Scene.cs" />
+    <Compile Include="Core\SceneManager.cs" />
     <Compile Include="Core\SceneManagment\Scene.cs" />
     <Compile Include="Core\SceneManagment\SceneManager.cs" />
     <Compile Include="Core\Graphics\Shader.cs" />
@@ -91,6 +97,8 @@
     <Compile Include="Core\Utilites.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Input.cs" />
+    <Compile Include="Core\GUIButton.cs" />
+    <Compile Include="Core\GUILabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -3,14 +3,13 @@ using OpenTK.Graphics;
 using System;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using MaximovInk.FlatinyEngine.Core.ProcessManagment;
 using MaximovInk.FlatinyEngine.Core.Graphics;
 
 namespace MaximovInk.FlatinyEngine.Core
 {
     public class Game : GameWindow
     {
-        protected SceneGraph SceneProcess;
+        protected Scene Scene;
  
         public Game():base(800,600,GraphicsMode.Default, "Flatiny")
         {
@@ -18,19 +17,24 @@ namespace MaximovInk.FlatinyEngine.Core
 
         public new void Run()
         {
-            SceneProcess = new SceneGraph();
-            var inputProcess = Input.Init(this);
-            var camProcess = Screen.Init(this);
+            Resize += OnResize;
 
-            ProcessManager.RegisterUpdateHandler(SceneProcess, 1);
-            ProcessManager.RegisterUpdateHandler(inputProcess, 0);
+            Scene = new Scene();
 
-            ProcessManager.RegisterRenderHandler(SceneProcess, 1);
-            ProcessManager.RegisterRenderHandler(camProcess, 2);
+            Input.Init(this);
+            Screen.Init(this);
+            SceneManager.Init(this);
+            GUI.Init(this);
+            RenderFrame += OnPostRender;
 
             VSync = VSyncMode.Off;
 
             base.Run();
+        }
+
+        private void OnPostRender(object sender, FrameEventArgs e)
+        {
+            SwapBuffers();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -51,21 +55,9 @@ namespace MaximovInk.FlatinyEngine.Core
             Logger.Log("Loading complete");
         }
         
-        protected override void OnResize(EventArgs e)
+        private void OnResize(object sender, EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
         }
-
-        protected override void OnRenderFrame(FrameEventArgs e)
-        {
-            ProcessManager.Render((float)e.Time);
-            SwapBuffers();
-        }
-
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            ProcessManager.Update((float)e.Time);
-        }
-
     }
 }

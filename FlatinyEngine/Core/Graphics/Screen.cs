@@ -1,5 +1,4 @@
 ﻿using MaximovInk.FlatinyEngine.Core.Compnents;
-using MaximovInk.FlatinyEngine.Core.ProcessManagment;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -16,8 +15,10 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
     {
         private static GameWindow window;
 
-        public static float Size { get { return size; } set { size = value; OnResize(); } }
-        private static float size = 1;
+        public static Vector2 Size { get { return new Vector2(window.Width,window.Height); } }
+
+        public static float Scale { get { return scale; } set { scale = value; OnResize(); } }
+        private static float scale = 1;
         public static float Near { get { return near; } set { near = value; OnResize(); } }
         private static float near = 0;
         public static float Far { get { return far; } set { far = value; OnResize(); } }
@@ -33,13 +34,17 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
         public static Matrix4 ScreenProjectionMatrix { get; private set; }
 
-        public static RenderProcess Init(GameWindow window)
+        public static void Init(GameWindow window)
         {
             Screen.window = window;
-            var rp = new RenderProcess();
-            rp.onRender += OnRender;
-            OnResize();
-            return rp;
+            window.RenderFrame += Render;
+        }
+
+        private static void Render(object sender, FrameEventArgs e)
+        {
+            GL.ClearColor(BackgroundColor);
+
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
         private static void OnResize()
@@ -51,20 +56,7 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             var proj = WorldProjectionMatrix =
                         Matrix4.CreateTranslation(new Vector3(-Position.X, -Position.Y, -Position.Z)) *
                         Matrix4.CreateScale(1, -1, 1) * Matrix4.CreateRotationZ(Rotation) *
-                        Matrix4.CreateOrthographic(aspect*Size, 1*Size, Near, Far);
-
-            /*var proj = WorldProjectionMatrix =
-                        Matrix4.CreateTranslation(new Vector3(-Position.X * window.Width, -Position.Y * window.Height, -Position.Z)) *
-                        Matrix4.CreateScale(Size, -Size, 1) * Matrix4.CreateRotationZ(Rotation) *
-                        Matrix4.CreateOrthographic(window.Width, window.Height, Near, Far);*/
-
-        }
-
-        private static void OnRender(float deltaTime)
-        {
-            GL.ClearColor(BackgroundColor);
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                        Matrix4.CreateOrthographic(aspect*Scale, 1*Scale, Near, Far);
         }
     }
 }

@@ -38,7 +38,6 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
             text = newText;
 
             mesh.vertices = new Vertex[6 * text.Length];
-           // mesh.indices = new uint[6 * text.Length];
 
             var totalX = 0.0f;
 
@@ -52,18 +51,6 @@ namespace MaximovInk.FlatinyEngine.Core.Compnents
                 mesh.vertices[6 * i + 3] = new Vertex(new Vector2(totalX, 0), new Vector2(ch.Uv.X, ch.Uv.Y), Color.White);
                 mesh.vertices[6 * i + 4] = new Vertex(new Vector2(totalX + ch.PSize.X, ch.PSize.Y), new Vector2(ch.Uv.X + ch.Uv.Z, ch.Uv.Y + ch.Uv.W), Color.White);
                 mesh.vertices[6 * i + 5] = new Vertex(new Vector2(totalX, ch.PSize.Y), new Vector2(ch.Uv.X, ch.Uv.Y + ch.Uv.W), Color.White); 
-
-                /*mesh.vertices[4 * i] = new Vertex(new Vector2(totalX, 0), new Vector2(ch.Uv.X, ch.Uv.Y), Color.White);
-                mesh.vertices[4 * i + 1] = new Vertex(new Vector2(totalX + ch.PSize.X, 0), new Vector2(ch.Uv.X + ch.Uv.Z, ch.Uv.Y), Color.White);
-                mesh.vertices[4 * i + 2] = new Vertex(new Vector2(totalX + ch.PSize.X, ch.PSize.Y), new Vector2(ch.Uv.X + ch.Uv.Z, ch.Uv.Y + ch.Uv.W), Color.White);
-                mesh.vertices[4 * i + 3] = new Vertex(new Vector2(totalX, ch.PSize.Y), new Vector2(ch.Uv.X, ch.Uv.Y + ch.Uv.W), Color.White);*/
-
-                /*mesh.indices[6 * i] = 4 * i;
-                mesh.indices[6 * i + 1] = 4 * i + 1;
-                mesh.indices[6 * i + 2] = 4 * i + 2;
-                mesh.indices[6 * i + 3] = 4 * i;
-                mesh.indices[6 * i + 4] = 4 * i + 2;
-                mesh.indices[6 * i + 5] = 4 * i + 3;*/
 
                 totalX += ch.PSize.X;
             }

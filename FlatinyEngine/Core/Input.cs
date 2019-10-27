@@ -1,12 +1,11 @@
-﻿using MaximovInk.FlatinyEngine.Core.ProcessManagment;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Input;
 
 namespace MaximovInk.FlatinyEngine
 {
     public static class Input
     {
-        private static GameWindow gameWindow;
+        private static GameWindow window;
 
         private static KeyboardState keyboardState, lastKeyboardState;
         private static MouseState mouseState, lastMouseState;
@@ -19,29 +18,37 @@ namespace MaximovInk.FlatinyEngine
 
         public static float MouseScrollDelta => mouseState.WheelPrecise - lastMouseState.WheelPrecise;
 
-        public static UpdateProcess Init(GameWindow window)
+        public static void Init(GameWindow window)
         {
-            gameWindow = window;
-
-            if (gameWindow != null)
-            {
-                gameWindow.FocusedChanged += GameWindow_FocusedChanged;
-                gameWindow.MouseMove += (sender, e)=> {
-                    MouseX = e.X;
-                    MouseY = e.Y;
-                    MouseXDelta = e.XDelta;
-                    MouseYDelta = e.YDelta;
-                };
-            }
-
-            var handler = new UpdateProcess();
-            handler.onUpdate += Update;
-            return handler;
+            Input.window = window;
+            window.MouseMove += MouseMove;
+            window.UpdateFrame += Update;
+            window.FocusedChanged += FocusedChanged;
         }
 
-        private static void GameWindow_FocusedChanged(object sender, System.EventArgs e)
+        private static void MouseMove(object sender, MouseMoveEventArgs e)
         {
-            if (gameWindow.Focused)
+            MouseX = e.Position.X;
+            MouseY = e.Position.Y;
+            MouseXDelta = e.XDelta;
+            MouseYDelta = e.YDelta;
+        }
+
+        private static void Update(object sender, FrameEventArgs e)
+        {
+            if (!window.Focused)
+                return;
+
+            lastKeyboardState = keyboardState;
+            lastMouseState = mouseState;
+
+            mouseState = Mouse.GetState();
+            keyboardState = Keyboard.GetState();
+        }
+
+        private static void FocusedChanged(object sender, System.EventArgs e)
+        {
+            if (window.Focused)
             {
                 ResetInput();
             }
@@ -54,18 +61,6 @@ namespace MaximovInk.FlatinyEngine
 
             lastKeyboardState = keyboardState;
             lastMouseState = mouseState;
-        }
-
-        private static void Update(float deltaTime)
-        {
-            if (!gameWindow.Focused)
-                return;
-
-            lastKeyboardState = keyboardState;
-            lastMouseState = mouseState;
-
-            mouseState = Mouse.GetState();
-            keyboardState = Keyboard.GetState();
         }
 
         public static bool GetKey(Key key)

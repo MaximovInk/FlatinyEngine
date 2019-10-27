@@ -1,9 +1,8 @@
-﻿using MaximovInk.FlatinyEngine.Core.ProcessManagment;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MaximovInk.FlatinyEngine.Core
 {
-    public class SceneGraph : IUpdateHandler, IRenderHandler , IStartHandler
+    public class Scene
     {
         public List<GameObject> gameObjects = new List<GameObject>();
 

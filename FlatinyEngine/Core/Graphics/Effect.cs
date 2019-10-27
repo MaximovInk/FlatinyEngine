@@ -29,6 +29,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             frag.Dispose();
         }
 
+        public void SetUniform4(string name, Vector4 vector4)
+        {
+            GL.ProgramUniform4(Handle, GetUniformLocation(name), vector4);
+        }
+
         public void SetUnfiormMatrix4(string name, bool transpose, ref Matrix4 matrix)
         {
             GL.ProgramUniformMatrix4(Handle, GetUniformLocation(name), transpose, ref matrix);

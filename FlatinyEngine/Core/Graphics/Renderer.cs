@@ -13,6 +13,11 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
 
         protected abstract Matrix4 GetMatrix();
 
+        protected virtual Matrix4 CameraProjection()
+        {
+            return Screen.WorldProjectionMatrix;
+        }
+
         public virtual void Render(float deltaTime)
         {
             if (mesh == null || Effect == null)
@@ -23,7 +28,8 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
             mesh.Bind();
 
             var matrix = GetMatrix();
-            var projection = Screen.WorldProjectionMatrix;
+
+            var projection = CameraProjection();
 
             Effect.SetUnfiormMatrix4("ObjectMatrix", false, ref matrix);
 

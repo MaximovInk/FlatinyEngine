@@ -9,6 +9,21 @@ namespace MaximovInk.FlatinyEngine.Core.Graphics
     public static class Shaders
     {
 
+        public const string COLORED_FRAGMENT = @"
+#version 430
+uniform sampler2D tex;
+in vec2 fragTexCoord;
+out vec4 finalColor;
+
+uniform vec4 color;
+
+void main() {
+    vec4 t = texture(tex, fragTexCoord);
+    finalColor = vec4(color.r*t.r, color.g*t.g,color.b*t.b, color.a*t.a);
+}
+";
+
+
         public const string FRAGMENT = @"
 #version 430
 uniform sampler2D tex;
